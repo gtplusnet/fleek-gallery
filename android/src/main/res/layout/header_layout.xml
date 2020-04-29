@@ -20,14 +20,14 @@
       android:layout_weight="1"
       android:textSize="15sp"/>
 
-    <Spinner
+<!--     <Spinner
       android:id="@+id/spinner"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:padding="10sp"
       android:entries="@array/array_name"
       android:layout_weight="1"
-      android:theme="@style/mySpinnerItemStyle"/>
+      android:theme="@style/mySpinnerItemStyle"/> -->
 
     <TextView
       android:id="@+id/next"
