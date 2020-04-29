@@ -8,17 +8,17 @@
         android:title="@string/videos"
         android:enabled="true"
         app:showAsAction="ifRoom|withText"/>
-    <item android:id="@+id/action_live"
-        android:title="@string/live"
-        android:enabled="true"
-        app:showAsAction="ifRoom|withText"/>
-    <item android:id="@+id/action_fleektok"
-        android:title="@string/fleek_tok"
-        android:enabled="true"
-        app:showAsAction="ifRoom|withText"/>
-    <item android:id="@+id/action_pending"
-        android:title="@string/pending"
-        android:enabled="true"
-        app:showAsAction="ifRoom|withText"/>
+<!--    <item android:id="@+id/action_live"-->
+<!--        android:title="@string/live"-->
+<!--        android:enabled="true"-->
+<!--        app:showAsAction="ifRoom|withText"/>-->
+<!--    <item android:id="@+id/action_fleektok"-->
+<!--        android:title="@string/fleek_tok"-->
+<!--        android:enabled="true"-->
+<!--        app:showAsAction="ifRoom|withText"/>-->
+<!--    <item android:id="@+id/action_pending"-->
+<!--        android:title="@string/pending"-->
+<!--        android:enabled="true"-->
+<!--        app:showAsAction="ifRoom|withText"/>-->
 </menu>
 

@@ -101,6 +101,9 @@ public class VideosFragment extends Fragment {
           if ("Camera".equals(spinner.getSelectedItem().toString())) {
               GalleryPlugin.returnResponse("camera_request");
               getActivity().finish();
+          } else if (spinner.getSelectedItem().toString().equals("Video")) {
+              GalleryPlugin.returnResponse("request_fleektok");
+              getActivity().finish();
           }
       }
 

@@ -88,6 +88,9 @@ public class PictureFragment extends Fragment {
         if (spinner.getSelectedItem().toString().equals("Camera")) {
           GalleryPlugin.returnResponse("camera_request");
           getActivity().finish();
+        } else if (spinner.getSelectedItem().toString().equals("Video")) {
+            GalleryPlugin.returnResponse("request_fleektok");
+            getActivity().finish();
         }
       }
 

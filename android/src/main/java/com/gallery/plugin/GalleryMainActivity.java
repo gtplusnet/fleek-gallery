@@ -37,7 +37,7 @@ public class GalleryMainActivity extends AppCompatActivity implements ActivityCo
         bottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         bottomNavigationView.inflateMenu(R.menu.my_navigation_items);
         bottomNavigationView.setLabelVisibilityMode(LabelVisibilityMode.LABEL_VISIBILITY_LABELED);
-        addBadgeView();
+//        addBadgeView();
         requestPermission();
     }
     private void addBadgeView() {
