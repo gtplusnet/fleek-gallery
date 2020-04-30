@@ -62,7 +62,8 @@ public class VideosFragment extends Fragment {
     cancel.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
-        // cancel return
+        GalleryPlugin.returnResponse("user_cancel");
+        getActivity().finish();
       }
     });
 
