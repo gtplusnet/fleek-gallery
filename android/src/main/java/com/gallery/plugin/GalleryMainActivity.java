@@ -122,4 +122,14 @@ public class GalleryMainActivity extends AppCompatActivity implements ActivityCo
       return loadFragment(fragment);
     }
   };
+
+    public void showLoading() {
+        LoadingDialog loadingDialog = new LoadingDialog(GalleryMainActivity.this);
+        loadingDialog.startLoadingDialog();
+    }
+
+    public void hideLoading() {
+        LoadingDialog loadingDialog = new LoadingDialog(GalleryMainActivity.this);
+        loadingDialog.dismissDialog();
+    }
 }

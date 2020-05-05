@@ -7,11 +7,13 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.ThumbnailUtils;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,6 +45,10 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
 
+// FF-MPEG Conversion
+import com.arthenica.mobileffmpeg.Config;
+import com.arthenica.mobileffmpeg.FFmpeg;
+
 
 public class VideosFragment extends Fragment {
 
@@ -71,26 +77,44 @@ public class VideosFragment extends Fragment {
       @Override
       public void onClick(View view) {
         if (selectedVideo.size() != 0) {
-            BitmapFactory.Options options=new BitmapFactory.Options();
-            options.inSampleSize = 1;
+            // Call Loader
+            GalleryMainActivity activity = (GalleryMainActivity) getActivity();
+            activity.showLoading();
 
-            File f = savebitmap("thumbnail");
-          //return all selected video to app.\
-            JSONObject object = new JSONObject();
-            JSONArray jsonArray = new JSONArray();
-          for (int x = 0; x < selectedVideo.size(); x++) {
-              try {
-                  jsonArray.put(selectedVideo.get(x));
-                  object.put("thumbnail",f.getAbsolutePath());
-                  object.put("data",jsonArray);
-              } catch (JSONException e) {
-                  e.printStackTrace();
-              }
-          }
-          GalleryPlugin.returnResponse(object);
-          getActivity().finish();
-        } else {
-          Toast.makeText(getContext(), "Nothing is selected.", Toast.LENGTH_SHORT).show();
+            AsyncTask.execute(new Runnable() {
+                @Override
+                public void run() {
+                    // Get Thumbnail and Convert to WEBM
+                    File f = getThumbnail("thumbnail");
+                    convertToWebm();
+
+                    // Initialize Object and Array
+                    JSONObject object = new JSONObject();
+                    JSONArray jsonArray = new JSONArray();
+
+                    // Insert Video to Array
+                    for (int x = 0; x < selectedVideo.size(); x++) {
+                        try {
+                            jsonArray.put(selectedVideo.get(x));
+                            object.put("thumbnail",f.getAbsolutePath());
+                            object.put("data",jsonArray);
+                        }
+                        catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    // Hide Loader
+//                    activity.hideLoading();
+
+                    // Return Activity
+                    GalleryPlugin.returnResponse(object);
+                    getActivity().finish();
+                }
+            });
+        }
+        else {
+            Toast.makeText(getContext(), "Nothing is selected.", Toast.LENGTH_SHORT).show();
         }
       }
     });
@@ -145,7 +169,17 @@ public class VideosFragment extends Fragment {
     }
   }
 
-    private File savebitmap(String filename) {
+    private void convertToWebm()
+    {
+        String webm_output = Environment.getExternalStorageDirectory() + "/Android/data/output.webm";
+        int rc = FFmpeg.execute("-i " + selectedVideo.get(0) + " -vcodec libvpx -cpu-used -5 -deadline realtime -y " + webm_output );
+        selectedVideo.set(0, webm_output);
+    }
+
+    private File getThumbnail(String filename) {
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inSampleSize = 1;
+
         String extStorageDirectory = Environment.getExternalStorageDirectory() + "/Android/data/";
         OutputStream outStream = null;
 
