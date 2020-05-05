@@ -62,7 +62,8 @@ public class VideosFragment extends Fragment {
     cancel.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
-        // cancel return
+        GalleryPlugin.returnResponse("user_cancel");
+        getActivity().finish();
       }
     });
 
@@ -246,7 +247,7 @@ public class VideosFragment extends Fragment {
                 }
               }
               else {
-                if(getFileSize(images.get(position)) <= 101)
+                if(getFileSize(images.get(position)) <= 31)
                 {
                   if (isChecked)
                     picturesView.setAlpha(0.3f);
@@ -257,7 +258,7 @@ public class VideosFragment extends Fragment {
                 else
                 {
                   checkBox.setChecked(false);
-                  Toast.makeText(getContext(),"File size exceeded the maximum size (100mb)",Toast.LENGTH_SHORT).show();
+                  Toast.makeText(getContext(),"File size exceeded the maximum size (30mb)",Toast.LENGTH_SHORT).show();
                 }
               }
           }
@@ -278,7 +279,7 @@ public class VideosFragment extends Fragment {
                 Toast.makeText(getContext(), "Single Selection Only.", Toast.LENGTH_SHORT).show();
               }
             }else {
-              if(getFileSize(images.get(position)) <= 100)
+              if(getFileSize(images.get(position)) <= 30)
               {
                 if (selectedVideo.contains(images.get(position))) {
                   checkBox.setChecked(false);
@@ -292,7 +293,7 @@ public class VideosFragment extends Fragment {
                 }
               }
               else{
-                Toast.makeText(getContext(),"File size exceeded the maximum size (100mb)",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(),"File size exceeded the maximum size (30mb)",Toast.LENGTH_SHORT).show();
               }
             }
           }
